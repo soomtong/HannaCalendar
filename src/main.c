@@ -41,20 +41,50 @@ static Layer *image_layer;
 static GBitmap *bitmaps[bitmaps_length];
 static struct tm *t;
 
+static int8_t get_last_day(int8_t month) {
+
+
+  return 30;
+}
+
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
-//  text_layer_set_text(text_layer, "Select");
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "year  : %d", (*t).tm_year);
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "month : %d", (*t).tm_mon + 1);
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "day : %d", (*t).tm_mday);
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "week : %d", (*t).tm_wday);
+  time_t now = time(NULL);
+  t = localtime(&now);  //todo: fix memory leaks
+
+  layer_mark_dirty(image_layer);
+
+//  APP_LOG(APP_LOG_LEVEL_DEBUG, "year  : %d", (*t).tm_year);
+//  APP_LOG(APP_LOG_LEVEL_DEBUG, "month : %d", (*t).tm_mon + 1);
+//  APP_LOG(APP_LOG_LEVEL_DEBUG, "day : %d", (*t).tm_mday);
+//  APP_LOG(APP_LOG_LEVEL_DEBUG, "week : %d", (*t).tm_wday);
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-//  text_layer_set_text(text_layer, "Up");
+  (*t).tm_mon--;
+
+  if ((*t).tm_mon < 0) {
+    (*t).tm_mon = 11;
+    (*t).tm_year--;
+  }
+  time_t prev = mktime(t);
+
+  t = localtime(&prev);  //todo: fix memory leaks
+
+  layer_mark_dirty(image_layer);
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-//  text_layer_set_text(text_layer, "Down");
+  (*t).tm_mon++;
+
+  if ((*t).tm_mon > 11) {
+    (*t).tm_mon = 0;
+    (*t).tm_year++;
+  }
+  time_t next = mktime(t);
+
+  t = localtime(&next);  //todo: fix memory leaks
+
+  layer_mark_dirty(image_layer);
 }
 
 static void click_config_provider(void *context) {
@@ -64,12 +94,16 @@ static void click_config_provider(void *context) {
 }
 
 static void draw_calendar(Layer *layer, GContext* ctx) {
-  const int8_t start_h = -10, start_v = 18;
+  const int8_t start_h = -14, start_v = 18;
   const int8_t size_h = 18, size_v = 15;
-  const int8_t space_h = 21, space_v = 20;
+  const int8_t space_h = 19, space_v = 20;
 
-  int8_t reset_week = 5, vertical_return = 1;
-  int8_t last_day = 31;
+  int8_t count_week = (int8_t) ((*t).tm_wday - ((*t).tm_mday % 7));
+  count_week = (int8_t) (count_week < -1 ? count_week + 7 : count_week);
+
+  int8_t reset_week = (int8_t) (count_week + 2);
+  int8_t vertical_return = 1;
+  int8_t last_day = get_last_day((int8_t) ((*t).tm_mon + 1));
 
   for (int i = 1; i <= last_day; ++i) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
@@ -80,7 +114,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
 
     reset_week++;
 
-    if (reset_week == 7) {
+    if (reset_week > 7) {
       vertical_return++;
       reset_week = 1;
     }
