@@ -39,10 +39,14 @@ enum PNGBitmaps {
 static Window *window;
 static Layer *image_layer;
 static GBitmap *bitmaps[bitmaps_length];
-
+static struct tm *t;
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 //  text_layer_set_text(text_layer, "Select");
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "year  : %d", (*t).tm_year);
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "month : %d", (*t).tm_mon + 1);
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "day : %d", (*t).tm_mday);
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "week : %d", (*t).tm_wday);
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -64,9 +68,10 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   const int8_t size_h = 18, size_v = 15;
   const int8_t space_h = 21, space_v = 20;
 
-  int8_t reset_week = 1, vertical_return = 1;
+  int8_t reset_week = 5, vertical_return = 1;
+  int8_t last_day = 31;
 
-  for (int i = 1; i < 32; ++i) {
+  for (int i = 1; i <= last_day; ++i) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
                                  (GRect) {
                                      .origin = { reset_week * space_h + start_h, vertical_return * space_v + start_v },
@@ -97,6 +102,9 @@ static void unload_layers() {
 
 static void window_load(Window *window) {
   window_set_background_color(window, GColorDarkGray);
+
+  time_t now = time(NULL);
+  t = localtime(&now);  //todo: fix memory leaks
 
   Layer *window_layer = window_get_root_layer(window);
 
