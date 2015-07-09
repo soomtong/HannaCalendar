@@ -41,10 +41,34 @@ static Layer *image_layer;
 static GBitmap *bitmaps[bitmaps_length];
 static struct tm *t;
 
-static int8_t get_last_day(int8_t month) {
+static int8_t get_added_year(int8_t year) {
+  int8_t added;
 
+  if(year % 400 == 0) added = 1;
+  else if(year % 100 == 0) added = 0;
+  else if(year % 4 == 0) added = 1;
+  else added = 0;
 
-  return 30;
+  return added;
+}
+
+static int8_t get_last_day(int8_t year, int8_t month) {
+  int8_t last;
+
+  switch(month) {
+    case 2:
+      last = (int8_t) (get_added_year(year) == 0 ? 28 : 29);
+      break;
+
+    case 4: case 6: case 9: case 11:
+      last = 30;
+      break;
+
+    default:
+      last = 31;
+  }
+
+  return last;
 }
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -52,11 +76,6 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   t = localtime(&now);  //todo: fix memory leaks
 
   layer_mark_dirty(image_layer);
-
-//  APP_LOG(APP_LOG_LEVEL_DEBUG, "year  : %d", (*t).tm_year);
-//  APP_LOG(APP_LOG_LEVEL_DEBUG, "month : %d", (*t).tm_mon + 1);
-//  APP_LOG(APP_LOG_LEVEL_DEBUG, "day : %d", (*t).tm_mday);
-//  APP_LOG(APP_LOG_LEVEL_DEBUG, "week : %d", (*t).tm_wday);
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -103,7 +122,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
 
   int8_t reset_week = (int8_t) (count_week + 2);
   int8_t vertical_return = 1;
-  int8_t last_day = get_last_day((int8_t) ((*t).tm_mon + 1));
+  int8_t last_day = get_last_day((int8_t) ((*t).tm_year), (int8_t) ((*t).tm_mon + 1));
 
   for (int i = 1; i <= last_day; ++i) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
