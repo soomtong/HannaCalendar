@@ -137,11 +137,11 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-  (*t).tm_mon--;
+  t->tm_mon--;
 
-  if ((*t).tm_mon < 0) {
-    (*t).tm_mon = 11;
-    (*t).tm_year--;
+  if (t->tm_mon < 0) {
+    t->tm_mon = 11;
+    t->tm_year--;
   }
   time_t prev = mktime(t);
 
@@ -151,11 +151,11 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-  (*t).tm_mon++;
+  t->tm_mon++;
 
-  if ((*t).tm_mon > 11) {
-    (*t).tm_mon = 0;
-    (*t).tm_year++;
+  if (t->tm_mon > 11) {
+    t->tm_mon = 0;
+    t->tm_year++;
   }
   time_t next = mktime(t);
 
@@ -176,11 +176,11 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
 
   char year[5];
   int8_t char_year, char_month;
-  snprintf(year, sizeof(year), "%d", (*t).tm_year + 1900);
+  snprintf(year, sizeof(year), "%d", t->tm_year + 1900);
 
-  char_month = bitmap_y1 + (*t).tm_mon;
+  char_month = bitmap_y1 + t->tm_mon;
 
-  if ((*t).tm_mon + 1 > 9) {
+  if (t->tm_mon + 1 > 9) {
     header_start-= 2;
 
     for (int8_t i = 0; i < 4; ++i) {
@@ -249,15 +249,15 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   }
 
   // draw days
-  const int8_t today = (*t).tm_mday;
+  const int8_t today = (const int8_t) t->tm_mday;
   const int8_t size_days_h = 18, size_days_v = 14;
 
-  int8_t count_week = (int8_t) ((*t).tm_wday - ((*t).tm_mday % 7));
+  int8_t count_week = (int8_t) (t->tm_wday - (t->tm_mday % 7));
   count_week = (int8_t) (count_week < -1 ? count_week + 7 : count_week);
 
   int8_t reset_week = (int8_t) (count_week + 2);
   int8_t vertical_return = 1;
-  int8_t last_day = get_last_day((int16_t) ((*t).tm_year), (int8_t) ((*t).tm_mon + 1));
+  int8_t last_day = get_last_day((int16_t) (t->tm_year), (int8_t) (t->tm_mon + 1));
 
   for (int8_t i = 1; i <= last_day; ++i) {
     if (i == today) {
