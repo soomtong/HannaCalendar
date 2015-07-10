@@ -203,6 +203,76 @@
         "type": "png",
         "name": "WEEK_7",
         "file": "w7.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_C",
+        "file": "year.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_0",
+        "file": "y0.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_1",
+        "file": "y1.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_2",
+        "file": "y2.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_3",
+        "file": "y3.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_4",
+        "file": "y4.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_5",
+        "file": "y5.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_6",
+        "file": "y6.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_7",
+        "file": "y7.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_8",
+        "file": "y8.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_9",
+        "file": "y9.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_10",
+        "file": "y10.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_11",
+        "file": "y11.png"
+      },
+      {
+        "type": "png",
+        "name": "YEAR_12",
+        "file": "y12.png"
       }
     ]
   }

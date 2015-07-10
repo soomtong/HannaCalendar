@@ -40,6 +40,20 @@ enum PNGBitmaps {
   bitmap_w5,
   bitmap_w6,
   bitmap_w7,
+  bitmap_year,
+  bitmap_y0,
+  bitmap_y1,
+  bitmap_y2,
+  bitmap_y3,
+  bitmap_y4,
+  bitmap_y5,
+  bitmap_y6,
+  bitmap_y7,
+  bitmap_y8,
+  bitmap_y9,
+  bitmap_y10,
+  bitmap_y11,
+  bitmap_y12,
   bitmaps_length
 };
 
@@ -48,7 +62,7 @@ static Layer *image_layer;
 static GBitmap *bitmaps[bitmaps_length];
 static struct tm *t;
 
-static int8_t get_added_year(int8_t year) {
+static int8_t get_added_year(int16_t year) {
   int8_t added;
 
   if(year % 400 == 0) added = 1;
@@ -59,7 +73,7 @@ static int8_t get_added_year(int8_t year) {
   return added;
 }
 
-static int8_t get_last_day(int8_t year, int8_t month) {
+static int8_t get_last_day(int16_t year, int8_t month) {
   int8_t last;
 
   switch(month) {
@@ -120,6 +134,49 @@ static void click_config_provider(void *context) {
 }
 
 static void draw_calendar(Layer *layer, GContext* ctx) {
+  // draw year and month
+
+  int8_t char_year;
+  char year[5];
+  snprintf(year, sizeof(year), "%d", (*t).tm_year + 1900);
+
+//  APP_LOG(APP_LOG_LEVEL_DEBUG, "Digit: %s", year);
+
+  for (int8_t i = 0; i < 4; ++i) {
+//    APP_LOG(APP_LOG_LEVEL_DEBUG, "Years: %c, %d", year[i], (int)year[i]);
+
+    char_year = bitmap_y0 + (int)year[i] - 48;
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[char_year],
+                                 (GRect) {
+                                     .origin = {(int16_t) (12 + i * 12), 8 },
+                                     .size = { 12, 17 }
+                                 });
+
+  }
+  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
+                               (GRect) {
+                                   .origin = {(int16_t) 62, 8 },
+                                   .size = { 16, 18 }
+                               });
+  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
+                               (GRect) {
+                                   .origin = {(int16_t) 104, 8 },
+                                   .size = { 16, 18 }
+                               });
+
+
+  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_y1],
+                               (GRect) {
+                                   .origin = {(int16_t) 80, 9 },
+                                   .size = { 12, 17 }
+                               });
+  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_y2],
+                               (GRect) {
+                                   .origin = {(int16_t) 92, 9 },
+                                   .size = { 12, 17 }
+                               });
+
+
 
   const int8_t start_h = -14, start_v = 40;
   const int8_t space_h = 19, space_v = 18;
@@ -130,7 +187,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   for (int8_t j = 0; j < 7; ++j) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[j + 32],
                                  (GRect) {
-                                     .origin = {(int16_t) ((start_h + 19) + (space_h * j)), start_v - 2 },
+                                     .origin = {(int16_t) ((start_h + 19) + (space_h * j)), start_v - 4 },
                                      .size = { size_weeks_h, size_weeks_v }
                                  });
   }
@@ -143,7 +200,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
 
   int8_t reset_week = (int8_t) (count_week + 2);
   int8_t vertical_return = 1;
-  int8_t last_day = get_last_day((int8_t) ((*t).tm_year), (int8_t) ((*t).tm_mon + 1));
+  int8_t last_day = get_last_day((int16_t) ((*t).tm_year), (int8_t) ((*t).tm_mon + 1));
 
   for (int8_t i = 1; i <= last_day; ++i) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
