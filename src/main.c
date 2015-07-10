@@ -157,7 +157,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
                                  (GRect) {
                                      .origin = {(int16_t) (header_start + 50), 8 },
-                                     .size = { 16, 18 }
+                                     .size = { 15, 18 }
                                  });
 
     graphics_draw_bitmap_in_rect(ctx, bitmaps[char_month],
@@ -167,8 +167,8 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
                                  });
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 90), 8 },
-                                     .size = { 16, 18 }
+                                     .origin = {(int16_t) (header_start + 92), 8 },
+                                     .size = { 15, 18 }
                                  });
   } else {
     for (int8_t i = 0; i < 4; ++i) {
@@ -183,7 +183,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
                                  (GRect) {
                                      .origin = {(int16_t) (header_start + 50), 8 },
-                                     .size = { 16, 18 }
+                                     .size = { 15, 18 }
                                  });
 
     graphics_draw_bitmap_in_rect(ctx, bitmaps[char_month],
@@ -193,8 +193,8 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
                                  });
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 85), 8 },
-                                     .size = { 16, 18 }
+                                     .origin = {(int16_t) (header_start + 87), 8 },
+                                     .size = { 15, 18 }
                                  });
   }
 
@@ -202,7 +202,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   const int8_t space_h = 19, space_v = 18;
 
   // draw header
-  const int8_t size_weeks_h = 16, size_weeks_v = 18;
+  const int8_t size_weeks_h = 15, size_weeks_v = 18;
 
   for (int8_t j = 0; j < 7; ++j) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[j + 32],
@@ -213,7 +213,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   }
 
   // draw days
-  const int8_t size_days_h = 18, size_days_v = 15;
+  const int8_t size_days_h = 18, size_days_v = 14;
 
   int8_t count_week = (int8_t) ((*t).tm_wday - ((*t).tm_mday % 7));
   count_week = (int8_t) (count_week < -1 ? count_week + 7 : count_week);
@@ -252,7 +252,7 @@ static void unload_layers() {
 }
 
 static void window_load(Window *window) {
-  window_set_background_color(window, GColorDarkGray);
+  window_set_background_color(window, GColorBlack);
 
   time_t now = time(NULL);
   t = localtime(&now);
