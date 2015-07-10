@@ -168,6 +168,41 @@
         "type": "png",
         "name": "DAY_31",
         "file": "31.png"
+      },
+      {
+        "type": "png",
+        "name": "WEEK_1",
+        "file": "w1.png"
+      },
+      {
+        "type": "png",
+        "name": "WEEK_2",
+        "file": "w2.png"
+      },
+      {
+        "type": "png",
+        "name": "WEEK_3",
+        "file": "w3.png"
+      },
+      {
+        "type": "png",
+        "name": "WEEK_4",
+        "file": "w4.png"
+      },
+      {
+        "type": "png",
+        "name": "WEEK_5",
+        "file": "w5.png"
+      },
+      {
+        "type": "png",
+        "name": "WEEK_6",
+        "file": "w6.png"
+      },
+      {
+        "type": "png",
+        "name": "WEEK_7",
+        "file": "w7.png"
       }
     ]
   }

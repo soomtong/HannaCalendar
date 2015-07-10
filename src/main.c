@@ -33,6 +33,13 @@ enum PNGBitmaps {
   bitmap_d29,
   bitmap_d30,
   bitmap_d31,
+  bitmap_w1,
+  bitmap_w2,
+  bitmap_w3,
+  bitmap_w4,
+  bitmap_w5,
+  bitmap_w6,
+  bitmap_w7,
   bitmaps_length
 };
 
@@ -73,7 +80,7 @@ static int8_t get_last_day(int8_t year, int8_t month) {
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   time_t now = time(NULL);
-  t = localtime(&now);  //todo: fix memory leaks
+  t = localtime(&now);
 
   layer_mark_dirty(image_layer);
 }
@@ -87,7 +94,7 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
   }
   time_t prev = mktime(t);
 
-  t = localtime(&prev);  //todo: fix memory leaks
+  t = localtime(&prev);
 
   layer_mark_dirty(image_layer);
 }
@@ -101,7 +108,7 @@ static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
   }
   time_t next = mktime(t);
 
-  t = localtime(&next);  //todo: fix memory leaks
+  t = localtime(&next);
 
   layer_mark_dirty(image_layer);
 }
@@ -113,9 +120,23 @@ static void click_config_provider(void *context) {
 }
 
 static void draw_calendar(Layer *layer, GContext* ctx) {
-  const int8_t start_h = -14, start_v = 18;
-  const int8_t size_h = 18, size_v = 15;
-  const int8_t space_h = 19, space_v = 20;
+
+  const int8_t start_h = -14, start_v = 40;
+  const int8_t space_h = 19, space_v = 18;
+
+  // draw header
+  const int8_t size_weeks_h = 16, size_weeks_v = 18;
+
+  for (int8_t j = 0; j < 7; ++j) {
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[j + 32],
+                                 (GRect) {
+                                     .origin = {(int16_t) ((start_h + 19) + (space_h * j)), start_v - 2 },
+                                     .size = { size_weeks_h, size_weeks_v }
+                                 });
+  }
+
+  // draw days
+  const int8_t size_days_h = 18, size_days_v = 15;
 
   int8_t count_week = (int8_t) ((*t).tm_wday - ((*t).tm_mday % 7));
   count_week = (int8_t) (count_week < -1 ? count_week + 7 : count_week);
@@ -124,11 +145,11 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   int8_t vertical_return = 1;
   int8_t last_day = get_last_day((int8_t) ((*t).tm_year), (int8_t) ((*t).tm_mon + 1));
 
-  for (int i = 1; i <= last_day; ++i) {
+  for (int8_t i = 1; i <= last_day; ++i) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
                                  (GRect) {
                                      .origin = { reset_week * space_h + start_h, vertical_return * space_v + start_v },
-                                     .size = { size_h, size_v }
+                                     .size = {size_days_h, size_days_v}
                                  });
 
     reset_week++;
@@ -157,7 +178,7 @@ static void window_load(Window *window) {
   window_set_background_color(window, GColorDarkGray);
 
   time_t now = time(NULL);
-  t = localtime(&now);  //todo: fix memory leaks
+  t = localtime(&now);
 
   Layer *window_layer = window_get_root_layer(window);
 
@@ -198,8 +219,6 @@ static void deinit(void) {
 
 int main(void) {
   init();
-
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
 
   app_event_loop();
   deinit();
