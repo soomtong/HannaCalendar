@@ -135,48 +135,68 @@ static void click_config_provider(void *context) {
 
 static void draw_calendar(Layer *layer, GContext* ctx) {
   // draw year and month
+  int8_t header_start = 20;
 
-  int8_t char_year;
   char year[5];
+  int8_t char_year, char_month;
   snprintf(year, sizeof(year), "%d", (*t).tm_year + 1900);
 
-//  APP_LOG(APP_LOG_LEVEL_DEBUG, "Digit: %s", year);
+  char_month = bitmap_y1 + (*t).tm_mon;
 
-  for (int8_t i = 0; i < 4; ++i) {
-//    APP_LOG(APP_LOG_LEVEL_DEBUG, "Years: %c, %d", year[i], (int)year[i]);
+  if ((*t).tm_mon + 1 > 9) {
+    header_start-= 2;
 
-    char_year = bitmap_y0 + (int)year[i] - 48;
-    graphics_draw_bitmap_in_rect(ctx, bitmaps[char_year],
+    for (int8_t i = 0; i < 4; ++i) {
+      char_year = bitmap_y0 + (int)year[i] - 48;
+      graphics_draw_bitmap_in_rect(ctx, bitmaps[char_year],
+                                   (GRect) {
+                                       .origin = {(int16_t) (header_start + i * 12), 9 },
+                                       .size = { 12, 17 }
+                                   });
+    }
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
                                  (GRect) {
-                                     .origin = {(int16_t) (12 + i * 12), 8 },
-                                     .size = { 12, 17 }
+                                     .origin = {(int16_t) (header_start + 50), 8 },
+                                     .size = { 16, 18 }
                                  });
 
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[char_month],
+                                 (GRect) {
+                                     .origin = {(int16_t) (header_start + 70), 9 },
+                                     .size = { 18, 17 }
+                                 });
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
+                                 (GRect) {
+                                     .origin = {(int16_t) (header_start + 90), 8 },
+                                     .size = { 16, 18 }
+                                 });
+  } else {
+    for (int8_t i = 0; i < 4; ++i) {
+
+      char_year = bitmap_y0 + (int)year[i] - 48;
+      graphics_draw_bitmap_in_rect(ctx, bitmaps[char_year],
+                                   (GRect) {
+                                       .origin = {(int16_t) (header_start + i * 12), 9 },
+                                       .size = { 12, 17 }
+                                   });
+    }
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
+                                 (GRect) {
+                                     .origin = {(int16_t) (header_start + 50), 8 },
+                                     .size = { 16, 18 }
+                                 });
+
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[char_month],
+                                 (GRect) {
+                                     .origin = {(int16_t) (header_start + 72), 9 },
+                                     .size = { 12, 17 }
+                                 });
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
+                                 (GRect) {
+                                     .origin = {(int16_t) (header_start + 85), 8 },
+                                     .size = { 16, 18 }
+                                 });
   }
-  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
-                               (GRect) {
-                                   .origin = {(int16_t) 62, 8 },
-                                   .size = { 16, 18 }
-                               });
-  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
-                               (GRect) {
-                                   .origin = {(int16_t) 104, 8 },
-                                   .size = { 16, 18 }
-                               });
-
-
-  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_y1],
-                               (GRect) {
-                                   .origin = {(int16_t) 80, 9 },
-                                   .size = { 12, 17 }
-                               });
-  graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_y2],
-                               (GRect) {
-                                   .origin = {(int16_t) 92, 9 },
-                                   .size = { 12, 17 }
-                               });
-
-
 
   const int8_t start_h = -14, start_v = 40;
   const int8_t space_h = 19, space_v = 18;
