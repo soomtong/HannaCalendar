@@ -57,9 +57,46 @@ enum PNGBitmaps {
   bitmaps_length
 };
 
+enum PNGOverlayBitmaps {
+  overlay_bitmap_plate = 0,
+  overlay_bitmap_d1,
+  overlay_bitmap_d2,
+  overlay_bitmap_d3,
+  overlay_bitmap_d4,
+  overlay_bitmap_d5,
+  overlay_bitmap_d6,
+  overlay_bitmap_d7,
+  overlay_bitmap_d8,
+  overlay_bitmap_d9,
+  overlay_bitmap_d10,
+  overlay_bitmap_d11,
+  overlay_bitmap_d12,
+  overlay_bitmap_d13,
+  overlay_bitmap_d14,
+  overlay_bitmap_d15,
+  overlay_bitmap_d16,
+  overlay_bitmap_d17,
+  overlay_bitmap_d18,
+  overlay_bitmap_d19,
+  overlay_bitmap_d20,
+  overlay_bitmap_d21,
+  overlay_bitmap_d22,
+  overlay_bitmap_d23,
+  overlay_bitmap_d24,
+  overlay_bitmap_d25,
+  overlay_bitmap_d26,
+  overlay_bitmap_d27,
+  overlay_bitmap_d28,
+  overlay_bitmap_d29,
+  overlay_bitmap_d30,
+  overlay_bitmap_d31,
+  overlay_bitmaps_length
+};
+
 static Window *window;
 static Layer *image_layer;
 static GBitmap *bitmaps[bitmaps_length];
+static GBitmap *overlay_bitmaps[overlay_bitmaps_length];
 static struct tm *t;
 
 static int8_t get_added_year(int16_t year) {
@@ -172,7 +209,6 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
                                  });
   } else {
     for (int8_t i = 0; i < 4; ++i) {
-
       char_year = bitmap_y0 + (int)year[i] - 48;
       graphics_draw_bitmap_in_rect(ctx, bitmaps[char_year],
                                    (GRect) {
@@ -213,6 +249,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   }
 
   // draw days
+  const int8_t today = (*t).tm_mday;
   const int8_t size_days_h = 18, size_days_v = 14;
 
   int8_t count_week = (int8_t) ((*t).tm_wday - ((*t).tm_mday % 7));
@@ -223,11 +260,19 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   int8_t last_day = get_last_day((int16_t) ((*t).tm_year), (int8_t) ((*t).tm_mon + 1));
 
   for (int8_t i = 1; i <= last_day; ++i) {
-    graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
-                                 (GRect) {
-                                     .origin = { reset_week * space_h + start_h, vertical_return * space_v + start_v },
-                                     .size = {size_days_h, size_days_v}
-                                 });
+    if (i == today) {
+      graphics_draw_bitmap_in_rect(ctx, overlay_bitmaps[i],
+                                   (GRect) {
+                                       .origin = {reset_week * space_h + start_h, vertical_return * space_v + start_v},
+                                       .size = {size_days_h, size_days_v}
+                                   });
+    } else {
+      graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
+                                   (GRect) {
+                                       .origin = {reset_week * space_h + start_h, vertical_return * space_v + start_v},
+                                       .size = {size_days_h, size_days_v}
+                                   });
+    }
 
     reset_week++;
 
@@ -259,10 +304,15 @@ static void window_load(Window *window) {
 
   Layer *window_layer = window_get_root_layer(window);
 
-  uint8_t resource_id = (uint8_t) RESOURCE_ID_DAY_1;
+  uint8_t bitmap_resource_id = (uint8_t) RESOURCE_ID_DAY_1;
+  uint8_t overlay_bitmap_resource_id = (uint8_t) RESOURCE_ID_O_DAY_1;
 
   for (uint8_t i = 1; i < bitmaps_length; ++i) {
-    bitmaps[i] = gbitmap_create_with_resource((uint8_t) (resource_id + i - 1));
+    bitmaps[i] = gbitmap_create_with_resource((uint8_t) (bitmap_resource_id + i - 1));
+  }
+
+  for (uint8_t i = 1; i < overlay_bitmaps_length; ++i) {
+    overlay_bitmaps[i] = gbitmap_create_with_resource((uint8_t) (overlay_bitmap_resource_id + i - 1));
   }
 
   load_layers(window_layer);
@@ -274,6 +324,11 @@ static void window_unload(Window *window) {
   for (uint8_t i = 0; i < bitmaps_length; ++i) {
     if (bitmaps[i]) gbitmap_destroy(bitmaps[i]);
   }
+
+  for (uint8_t i = 0; i < overlay_bitmaps_length; ++i) {
+    if (overlay_bitmaps[i]) gbitmap_destroy(overlay_bitmaps[i]);
+  }
+
 }
 
 static void init(void) {

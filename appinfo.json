@@ -3,7 +3,7 @@
   "shortName": "HannaCalendar",
   "longName": "HannaCalendar",
   "companyName": "Soomtong",
-  "versionLabel": "1.0",
+  "versionLabel": "1.1",
   "sdkVersion": "3",
   "targetPlatforms": ["basalt"],
   "watchapp": {
@@ -273,6 +273,161 @@
         "type": "png",
         "name": "YEAR_12",
         "file": "y12.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_1",
+        "file": "od1.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_2",
+        "file": "od2.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_3",
+        "file": "od3.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_4",
+        "file": "od4.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_5",
+        "file": "od5.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_6",
+        "file": "od6.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_7",
+        "file": "od7.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_8",
+        "file": "od8.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_9",
+        "file": "od9.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_10",
+        "file": "od10.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_11",
+        "file": "od11.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_12",
+        "file": "od12.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_13",
+        "file": "od13.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_14",
+        "file": "od14.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_15",
+        "file": "od15.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_16",
+        "file": "od16.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_17",
+        "file": "od17.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_18",
+        "file": "od18.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_19",
+        "file": "od19.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_20",
+        "file": "od20.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_21",
+        "file": "od21.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_22",
+        "file": "od22.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_23",
+        "file": "od23.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_24",
+        "file": "od24.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_25",
+        "file": "od25.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_26",
+        "file": "od26.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_27",
+        "file": "od27.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_28",
+        "file": "od28.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_29",
+        "file": "od29.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_30",
+        "file": "od30.png"
+      },
+      {
+        "type": "png",
+        "name": "O_DAY_31",
+        "file": "od31.png"
       }
     ]
   }
