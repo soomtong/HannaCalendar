@@ -202,7 +202,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
                                      .origin = {(int16_t) (header_start + 70), 9 },
                                      .size = { 18, 17 }
                                  });
-    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w2],
                                  (GRect) {
                                      .origin = {(int16_t) (header_start + 92), 8 },
                                      .size = { 15, 18 }
@@ -227,7 +227,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
                                      .origin = {(int16_t) (header_start + 72), 9 },
                                      .size = { 12, 17 }
                                  });
-    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w1],
+    graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w2],
                                  (GRect) {
                                      .origin = {(int16_t) (header_start + 87), 8 },
                                      .size = { 15, 18 }

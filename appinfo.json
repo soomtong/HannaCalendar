@@ -3,7 +3,7 @@
   "shortName": "HannaCalendar",
   "longName": "HannaCalendar",
   "companyName": "Soomtong",
-  "versionLabel": "1.1",
+  "versionLabel": "1.2",
   "sdkVersion": "3",
   "targetPlatforms": ["basalt"],
   "watchapp": {
@@ -171,6 +171,11 @@
       },
       {
         "type": "png",
+        "name": "WEEK_7",
+        "file": "w7.png"
+      },
+      {
+        "type": "png",
         "name": "WEEK_1",
         "file": "w1.png"
       },
@@ -198,11 +203,6 @@
         "type": "png",
         "name": "WEEK_6",
         "file": "w6.png"
-      },
-      {
-        "type": "png",
-        "name": "WEEK_7",
-        "file": "w7.png"
       },
       {
         "type": "png",
