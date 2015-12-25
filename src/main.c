@@ -177,8 +177,8 @@ static void timer_callback(void *data) {
   AccelData accel = (AccelData) { .x = 0, .y = 0, .z = 0 };
   accel_service_peek(&accel);
 
-  GPoint margin_min = {10, 0};
-  GPoint margin_max = {28, 21};
+  GPoint margin_min = {9, -7};
+  GPoint margin_max = {29, 21};
 
   // 10 - 19 - 28
   //  3   12 - 21
@@ -206,7 +206,6 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   header.x = header.x + round_origin.x;
   header.y = header.y + round_origin.y - 4;
 #endif
-
 
   char year[5];
   int8_t char_year, char_month;
@@ -273,10 +272,10 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
 
 #if defined(PBL_ROUND)
   // set layer position
-  calendar.x = calendar.x + round_origin.x - 5;
+  calendar.x = calendar.x + round_origin.x - 3;
   calendar.y = calendar.y + round_origin.y - 5;
 
-  const int8_t space_h = 20, space_v = 19;
+  const int8_t space_h = 21, space_v = 19;
 #else
   const int8_t space_h = 19, space_v = 18;
 #endif
