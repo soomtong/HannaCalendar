@@ -1,5 +1,7 @@
 #include <pebble.h>
 
+#define ACCEL_STEP_MS 100
+
 enum PNGBitmaps {
   bitmap_plate = 0,
   bitmap_d1,
@@ -98,7 +100,7 @@ static Layer *image_layer;
 static GBitmap *bitmaps[bitmaps_length];
 static GBitmap *overlay_bitmaps[overlay_bitmaps_length];
 static struct tm *t;
-static const GPoint round_origin = {19, 12};
+static GPoint round_origin = {19, 12};
 
 static int8_t get_added_year(int16_t year) {
   int8_t added;
@@ -171,6 +173,30 @@ static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
 }
 
+static void timer_callback(void *data) {
+  AccelData accel = (AccelData) { .x = 0, .y = 0, .z = 0 };
+  accel_service_peek(&accel);
+
+  GPoint margin_min = {10, 0};
+  GPoint margin_max = {28, 21};
+
+  // 10 - 19 - 28
+  //  3   12 - 21
+  round_origin.x += (accel.x + 120) / 100;
+  round_origin.y -= (accel.y + 320) / 100;
+
+  if (round_origin.x < margin_min.x) round_origin.x = margin_min.x;
+  if (round_origin.x > margin_max.x) round_origin.x = margin_max.x;
+
+  if (round_origin.y < margin_min.y) round_origin.y = margin_min.y;
+  if (round_origin.y > margin_max.y) round_origin.y = margin_max.y;
+
+  app_timer_register(ACCEL_STEP_MS, timer_callback, NULL);
+
+  layer_mark_dirty(image_layer);
+
+}
+
 static void draw_calendar(Layer *layer, GContext* ctx) {
   // draw year and month
   GPoint header = { 20, 0 };
@@ -178,7 +204,7 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
 #if defined(PBL_ROUND)
   // set layer position
   header.x = header.x + round_origin.x;
-  header.y = header.y + round_origin.y;
+  header.y = header.y + round_origin.y - 4;
 #endif
 
 
@@ -247,11 +273,14 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
 
 #if defined(PBL_ROUND)
   // set layer position
-  calendar.x = calendar.x + round_origin.x;
-  calendar.y = calendar.y + round_origin.y;
+  calendar.x = calendar.x + round_origin.x - 5;
+  calendar.y = calendar.y + round_origin.y - 5;
+
+  const int8_t space_h = 20, space_v = 19;
+#else
+  const int8_t space_h = 19, space_v = 18;
 #endif
 
-  const int8_t space_h = 19, space_v = 18;
 
   for (int8_t j = 0; j < 7; ++j) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[j + 32],
@@ -329,6 +358,13 @@ static void window_load(Window *window) {
   }
 
   load_layers(window_layer);
+
+#if defined(PBL_ROUND)
+  accel_data_service_subscribe(0, NULL);
+
+  app_timer_register(ACCEL_STEP_MS, timer_callback, NULL);
+#endif
+
 }
 
 static void window_unload(Window *window) {
