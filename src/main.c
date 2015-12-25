@@ -98,6 +98,7 @@ static Layer *image_layer;
 static GBitmap *bitmaps[bitmaps_length];
 static GBitmap *overlay_bitmaps[overlay_bitmaps_length];
 static struct tm *t;
+static const GPoint round_origin = {19, 12};
 
 static int8_t get_added_year(int16_t year) {
   int8_t added;
@@ -172,7 +173,14 @@ static void click_config_provider(void *context) {
 
 static void draw_calendar(Layer *layer, GContext* ctx) {
   // draw year and month
-  int8_t header_start = 20;
+  GPoint header = { 20, 0 };
+
+#if defined(PBL_ROUND)
+  // set layer position
+  header.x = header.x + round_origin.x;
+  header.y = header.y + round_origin.y;
+#endif
+
 
   char year[5];
   int8_t char_year, char_month;
@@ -181,30 +189,30 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
   char_month = bitmap_y1 + t->tm_mon;
 
   if (t->tm_mon + 1 > 9) {
-    header_start-= 2;
+    header.x -= 2;
 
     for (int8_t i = 0; i < 4; ++i) {
       char_year = bitmap_y0 + (int)year[i] - 48;
       graphics_draw_bitmap_in_rect(ctx, bitmaps[char_year],
                                    (GRect) {
-                                       .origin = {(int16_t) (header_start + i * 12), 9 },
+                                       .origin = {(int16_t) (header.x + i * 12), (int16_t) (header.y + 9)},
                                        .size = { 12, 17 }
                                    });
     }
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 50), 8 },
+                                     .origin = {(int16_t) (header.x + 50), (int16_t) (header.y + 8)},
                                      .size = { 15, 18 }
                                  });
 
     graphics_draw_bitmap_in_rect(ctx, bitmaps[char_month],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 70), 9 },
+                                     .origin = {(int16_t) (header.x + 70), (int16_t) (header.y + 9)},
                                      .size = { 18, 17 }
                                  });
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w2],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 92), 8 },
+                                     .origin = {(int16_t) (header.x + 92), (int16_t) (header.y + 8)},
                                      .size = { 15, 18 }
                                  });
   } else {
@@ -212,45 +220,50 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
       char_year = bitmap_y0 + (int)year[i] - 48;
       graphics_draw_bitmap_in_rect(ctx, bitmaps[char_year],
                                    (GRect) {
-                                       .origin = {(int16_t) (header_start + i * 12), 9 },
+                                       .origin = {(int16_t) (header.x + i * 12), (int16_t) (header.y + 9)},
                                        .size = { 12, 17 }
                                    });
     }
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_year],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 50), 8 },
+                                     .origin = {(int16_t) (header.x + 50), (int16_t) (header.y + 8)},
                                      .size = { 15, 18 }
                                  });
 
     graphics_draw_bitmap_in_rect(ctx, bitmaps[char_month],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 72), 9 },
+                                     .origin = {(int16_t) (header.x + 72), (int16_t) (header.y + 9)},
                                      .size = { 12, 17 }
                                  });
     graphics_draw_bitmap_in_rect(ctx, bitmaps[bitmap_w2],
                                  (GRect) {
-                                     .origin = {(int16_t) (header_start + 87), 8 },
+                                     .origin = {(int16_t) (header.x + 87), (int16_t) (header.y + 8)},
                                      .size = { 15, 18 }
                                  });
   }
 
-  const int8_t start_h = -14, start_v = 40;
-  const int8_t space_h = 19, space_v = 18;
-
   // draw header
-  const int8_t size_weeks_h = 15, size_weeks_v = 18;
+  GPoint calendar = { -14, 40 };
+
+#if defined(PBL_ROUND)
+  // set layer position
+  calendar.x = calendar.x + round_origin.x;
+  calendar.y = calendar.y + round_origin.y;
+#endif
+
+  const int8_t space_h = 19, space_v = 18;
 
   for (int8_t j = 0; j < 7; ++j) {
     graphics_draw_bitmap_in_rect(ctx, bitmaps[j + 32],
                                  (GRect) {
-                                     .origin = {(int16_t) ((start_h + 19) + (space_h * j)), start_v - 4 },
-                                     .size = { size_weeks_h, size_weeks_v }
+                                     .origin = {(int16_t) ((calendar.x + 19) + (space_h * j)),
+                                                (int16_t) (calendar.y - 4)},
+                                     .size = { 15, 18 }
                                  });
   }
 
   // draw days
   const int8_t today = (const int8_t) t->tm_mday;
-  const int8_t size_days_h = 18, size_days_v = 14;
 
   int8_t count_week = (int8_t) (t->tm_wday - (t->tm_mday % 7));
   count_week = (int8_t) (count_week < -1 ? count_week + 7 : count_week);
@@ -263,14 +276,14 @@ static void draw_calendar(Layer *layer, GContext* ctx) {
     if (i == today) {
       graphics_draw_bitmap_in_rect(ctx, overlay_bitmaps[i],
                                    (GRect) {
-                                       .origin = {reset_week * space_h + start_h, vertical_return * space_v + start_v},
-                                       .size = {size_days_h, size_days_v}
+                                       .origin = {reset_week * space_h + calendar.x, vertical_return * space_v + calendar.y},
+                                       .size = {18, 14}
                                    });
     } else {
       graphics_draw_bitmap_in_rect(ctx, bitmaps[i],
                                    (GRect) {
-                                       .origin = {reset_week * space_h + start_h, vertical_return * space_v + start_v},
-                                       .size = {size_days_h, size_days_v}
+                                       .origin = {reset_week * space_h + calendar.x, vertical_return * space_v + calendar.y},
+                                       .size = {18, 14}
                                    });
     }
 

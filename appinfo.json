@@ -3,9 +3,9 @@
   "shortName": "HannaCalendar",
   "longName": "HannaCalendar",
   "companyName": "Soomtong",
-  "versionLabel": "1.2",
+  "versionLabel": "1.3",
   "sdkVersion": "3",
-  "targetPlatforms": ["basalt"],
+  "targetPlatforms": ["basalt", "chalk"],
   "watchapp": {
     "watchface": false
   },
@@ -15,417 +15,417 @@
   "resources": {
     "media": [
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_1",
         "file": "d1.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_2",
         "file": "d2.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_3",
         "file": "d3.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_4",
         "file": "d4.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_5",
         "file": "d5.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_6",
         "file": "d6.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_7",
         "file": "d7.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_8",
         "file": "d8.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_9",
         "file": "d9.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_10",
         "file": "d10.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_11",
         "file": "d11.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_12",
         "file": "d12.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_13",
         "file": "d13.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_14",
         "file": "d14.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_15",
         "file": "d15.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_16",
         "file": "d16.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_17",
         "file": "d17.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_18",
         "file": "d18.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_19",
         "file": "d19.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_20",
         "file": "d20.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_21",
         "file": "d21.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_22",
         "file": "d22.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_23",
         "file": "d23.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_24",
         "file": "d24.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_25",
         "file": "d25.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_26",
         "file": "d26.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_27",
         "file": "d27.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_28",
         "file": "d28.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_29",
         "file": "d29.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_30",
         "file": "d30.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "DAY_31",
         "file": "d31.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "WEEK_7",
         "file": "w7.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "WEEK_1",
         "file": "w1.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "WEEK_2",
         "file": "w2.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "WEEK_3",
         "file": "w3.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "WEEK_4",
         "file": "w4.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "WEEK_5",
         "file": "w5.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "WEEK_6",
         "file": "w6.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_C",
         "file": "year.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_0",
         "file": "y0.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_1",
         "file": "y1.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_2",
         "file": "y2.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_3",
         "file": "y3.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_4",
         "file": "y4.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_5",
         "file": "y5.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_6",
         "file": "y6.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_7",
         "file": "y7.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_8",
         "file": "y8.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_9",
         "file": "y9.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_10",
         "file": "y10.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_11",
         "file": "y11.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "YEAR_12",
         "file": "y12.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_1",
         "file": "od1.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_2",
         "file": "od2.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_3",
         "file": "od3.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_4",
         "file": "od4.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_5",
         "file": "od5.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_6",
         "file": "od6.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_7",
         "file": "od7.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_8",
         "file": "od8.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_9",
         "file": "od9.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_10",
         "file": "od10.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_11",
         "file": "od11.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_12",
         "file": "od12.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_13",
         "file": "od13.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_14",
         "file": "od14.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_15",
         "file": "od15.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_16",
         "file": "od16.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_17",
         "file": "od17.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_18",
         "file": "od18.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_19",
         "file": "od19.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_20",
         "file": "od20.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_21",
         "file": "od21.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_22",
         "file": "od22.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_23",
         "file": "od23.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_24",
         "file": "od24.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_25",
         "file": "od25.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_26",
         "file": "od26.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_27",
         "file": "od27.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_28",
         "file": "od28.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_29",
         "file": "od29.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_30",
         "file": "od30.png"
       },
       {
-        "type": "png",
+        "type": "bitmap",
         "name": "O_DAY_31",
         "file": "od31.png"
       }
