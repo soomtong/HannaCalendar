@@ -3,7 +3,7 @@
   "shortName": "HannaCalendar",
   "longName": "HannaCalendar",
   "companyName": "Soomtong",
-  "versionLabel": "1.3",
+  "versionLabel": "2.0",
   "sdkVersion": "3",
   "targetPlatforms": ["aplite", "basalt", "chalk"],
   "watchapp": {
